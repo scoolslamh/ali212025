@@ -1,0 +1,29 @@
+{% load static %}
+<header style="background: linear-gradient(to left, #e91e63, #f8bbd0); padding: 10px 20px; color: white;">
+  <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+
+    <!-- شعار المتجر -->
+    <h1 style="margin: 0; font-size: 1.8rem; font-family: 'Cairo', sans-serif;">🌸 وردة غلا 🌸</h1>
+
+    <!-- قائمة التنقل -->
+    <nav style="display: flex; align-items: center; gap: 20px;">
+      <ul style="list-style: none; margin: 0; padding: 0; display: flex; gap: 15px; flex-wrap: wrap;">
+        <li><a href="#flowers" style="color: white; text-decoration: none; font-weight: bold;">خذ وردة</a></li>
+        <li><a href="#about" style="color: white; text-decoration: none; font-weight: bold;">من نحن</a></li>
+        <li><a href="#contact" style="color: white; text-decoration: none; font-weight: bold;">تواصل معنا</a></li>
+        <li><a href="#welcome" style="color: white; text-decoration: none; font-weight: bold;">الترحيب</a></li>
+      </ul>
+
+      <!-- أزرار الحساب -->
+      <div style="display: flex; gap: 10px; margin-right: 20px; align-items: center;">
+        {% if request.user.is_authenticated %}
+          <span style="color: white; font-weight: bold;">👋 مرحبًا {{ request.user.username }}</span>
+          <a href="{% url 'logout' %}" style="background-color: white; color: #c62828; padding: 5px 12px; border-radius: 5px; text-decoration: none; font-weight: bold;">تسجيل الخروج</a>
+        {% else %}
+          <a href="{% url 'login' %}" style="background-color: white; color: #e91e63; padding: 5px 12px; border-radius: 5px; text-decoration: none; font-weight: bold;">تسجيل الدخول</a>
+          <a href="{% url 'register' %}" style="background-color: #ffffff; color: #d81b60; padding: 5px 12px; border-radius: 5px; text-decoration: none; font-weight: bold;">إنشاء حساب</a>
+        {% endif %}
+      </div>
+    </nav>
+  </div>
+</header>

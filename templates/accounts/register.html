@@ -1,0 +1,40 @@
+{% include 'header.html' %}
+
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <title>تسجيل حساب جديد</title>
+  <style>
+    body { font-family: 'Cairo', sans-serif; background-color: #f9f9f9; padding: 20px; }
+    form { max-width: 400px; margin: auto; background: #fff; padding: 30px; border-radius: 8px; box-shadow: 0 0 10px #ccc; }
+    input { display: block; width: 100%; margin-bottom: 15px; padding: 10px; border-radius: 4px; border: 1px solid #ddd; }
+    button { background-color: #007bff; color: white; padding: 10px; border: none; border-radius: 5px; width: 100%; }
+    .msg { color: red; text-align: center; }
+  </style>
+</head>
+<body>
+
+  <h2 style="text-align:center;">إنشاء حساب جديد</h2>
+
+  {% if messages %}
+    <div class="msg">
+      {% for message in messages %}
+        <p>{{ message }}</p>
+      {% endfor %}
+    </div>
+  {% endif %}
+
+  <form method="POST">
+    {% csrf_token %}
+    <input type="text" name="username" placeholder="اسم المستخدم" required>
+    <input type="email" name="email" placeholder="البريد الإلكتروني" required>
+    <input type="text" name="phone" placeholder="رقم الجوال" required>
+    <input type="password" name="password" placeholder="كلمة المرور" required>
+    <button type="submit">تسجيل</button>
+  </form>
+
+</body>
+</html>
+
+{% include 'footer.html' %}
