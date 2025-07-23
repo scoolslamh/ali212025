@@ -1,4 +1,5 @@
 from pathlib import Path
+import os  # ← مهم لاستخدام os.path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -82,8 +83,12 @@ TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-# Static files
-STATIC_URL = 'static/'
+# Static files (CSS, JavaScript, Images)
+STATIC_URL = '/static/'
+
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',  # ← هذا يربط مجلد C:\Users\ali71\ali3\static
+]
 
 # Media files (optional if using images)
 MEDIA_URL = '/media/'
