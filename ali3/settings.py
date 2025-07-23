@@ -1,15 +1,25 @@
 from pathlib import Path
-import os  # ← مهم لاستخدام os.path
+import os
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
+# المسار الأساسي للمشروع
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Quick-start development settings - unsuitable for production
+# إعداد Cloudinary
+cloudinary.config(
+    cloud_name='dasaivoam',
+    api_key='354892438553333',
+    api_secret='BmSGP2539EmN1-D5PWoDvzKHPCs'
+)
+
+# إعدادات عامة
 SECRET_KEY = 'django-insecure-n&#9f9#w2xgcqy#z5_qv^gd7pf$aai86ji_2+ai#_pf1xls#3*'
 DEBUG = True
 ALLOWED_HOSTS = []
 
-# Application definition
+# التطبيقات المثبتة
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -18,12 +28,17 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
-    # التطبيقات الخاصة بك
+    # تطبيقاتك الخاصة
     'store',
     'dashboard',
     'accounts',
+
+    # Cloudinary
+    'cloudinary',
+    'cloudinary_storage',
 ]
 
+# الوسيطات (Middleware)
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -34,15 +49,18 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# ملفات urls الرئيسية
 ROOT_URLCONF = 'ali3.urls'
 
+# إعدادات القوالب
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],  # ← ربط مجلد القوالب هنا
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
+                'django.template.context_processors.debug',
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
@@ -51,9 +69,10 @@ TEMPLATES = [
     },
 ]
 
+# WSGI
 WSGI_APPLICATION = 'ali3.wsgi.application'
 
-# Database
+# قاعدة البيانات
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
@@ -61,38 +80,40 @@ DATABASES = {
     }
 }
 
-# Password validation
+# التحقق من كلمات المرور
 AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
+    {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator'},
+    {'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator'},
 ]
 
-# Internationalization
+# إعدادات اللغة والوقت
 LANGUAGE_CODE = 'en-us'
 TIME_ZONE = 'UTC'
 USE_I18N = True
 USE_TZ = True
 
-# Static files (CSS, JavaScript, Images)
+# الملفات الثابتة
 STATIC_URL = '/static/'
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-STATICFILES_DIRS = [
-    BASE_DIR / 'static',  # ← هذا يربط مجلد C:\Users\ali71\ali3\static
-]
+# Cloudinary للوسائط
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': 'dasaivoam',
+    'API_KEY': '354892438553333',
+    'API_SECRET': 'BmSGP2539EmN1-D5PWoDvzKHPCs',
+}
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
-# Media files (optional if using images)
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+# إعدادات البريد الإلكتروني باستخدام Gmail
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'mutamieza.op@gmail.com'
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_APP_PASSWORD')  # ننصح باستخدام .env لحماية الكلمة
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
-# Default primary key field type
+# المفتاح الأساسي الافتراضي
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
