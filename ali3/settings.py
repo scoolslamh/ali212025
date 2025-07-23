@@ -118,3 +118,4 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 # المفتاح الأساسي الافتراضي
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+   
