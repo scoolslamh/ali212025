@@ -107,12 +107,13 @@ CLOUDINARY_STORAGE = {
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 # إعدادات البريد الإلكتروني باستخدام Gmail
+# إعدادات البريد الإلكتروني باستخدام Gmail مباشرة
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'mutamieza.op@gmail.com'
-EMAIL_HOST_PASSWORD = os.getenv('EMAIL_APP_PASSWORD')  # ننصح باستخدام .env لحماية الكلمة
+EMAIL_HOST_PASSWORD = 'yqzm jokc rfjz qrif'  # ← ضع هنا كلمة مرور التطبيق (App Password) كاملة
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 # المفتاح الأساسي الافتراضي
